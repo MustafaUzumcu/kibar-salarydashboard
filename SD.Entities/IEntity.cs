@@ -1,4 +1,4 @@
-﻿namespace SD.Core.Entities
+﻿namespace SD.Entities
 {
     public interface IEntity
     {
