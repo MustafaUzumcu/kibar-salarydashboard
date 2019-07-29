@@ -1,4 +1,4 @@
-# kibar-salarydashboard
+# Kibar Holding -Salary Dashboard
 Salary Dashboard
 
 **Edit:**
