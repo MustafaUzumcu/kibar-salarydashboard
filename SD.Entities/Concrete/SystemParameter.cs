@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SD.Entities.Concrete
 {
     /// <summary>
@@ -6,6 +9,8 @@ namespace SD.Entities.Concrete
     /// </summary>
     public class SystemParameter:IEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ParameterId { get; set; }
 
         public string ParameterName { get; set; }
