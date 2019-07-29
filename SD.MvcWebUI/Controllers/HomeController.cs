@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SD.Business.Abstract;
+using SD.MvcWebUI.Models;
 
 namespace SD.MvcWebUI.Controllers
 {
@@ -16,17 +17,33 @@ namespace SD.MvcWebUI.Controllers
             _systemParameterService = systemParameterService;
         }
 
-        public string Index()
+        public IActionResult Index()
         {
-            // Example Get Data From Database
-            var parameters = _systemParameterService.GetList();
-            string result = "Parametre eklenmedi";
-            if (parameters.Count > 0)
+            List<SystemParameterViewModel> parameterViewModels = new List<SystemParameterViewModel>();
+
+            for (int i = 0; i < 100; i++)
             {
-                result =
-                    $"{parameters[0].ParameterName} : {parameters[0].ParameterValue} ({parameters[0].Description})";
+                parameterViewModels.Add(new SystemParameterViewModel
+                {
+                    ParameterId = i,
+                    ParameterName = $"Parameter Name {i}",
+                    ParameterValue = $"Parameter Value {i}",
+                    Description = $"Parameter Description {i}",
+                    IsReadOnly = i % 2 == 0,
+                });
             }
-            return result;
+
+            return View(parameterViewModels);
+
+            // Example Get Data From Database
+            //var parameters = _systemParameterService.GetList();
+            //string result = "Parametre eklenmedi";
+            //if (parameters.Count > 0)
+            //{
+            //    result =
+            //        $"{parameters[0].ParameterName} : {parameters[0].ParameterValue} ({parameters[0].Description})";
+            //}
+            //return result;
         }
     }
 }

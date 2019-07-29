@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Middlewares\" />
     <Folder Include="Views\Shared\Components\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
