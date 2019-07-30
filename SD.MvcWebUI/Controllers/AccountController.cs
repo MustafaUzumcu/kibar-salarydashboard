@@ -47,6 +47,7 @@ namespace SD.MvcWebUI.Controllers
                 if (!userCreateResult.Succeeded)
                 {
                     ModelState.AddModelError("", "Kullanıcı oluşturulamadı");
+                    return View(registerViewModel);
                 }
                 else
                 {
@@ -105,13 +106,15 @@ namespace SD.MvcWebUI.Controllers
         {
             if (string.IsNullOrEmpty(email))
             {
+                ModelState.AddModelError("", "Email alanı zorunlu");
                 return View();
             }
 
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
             {
-                TempData.Add("message", "Kullanıcı bulunamadı");
+                ModelState.AddModelError("", "Kullanıcı bulunamadı");
+                return View();
             }
 
             var token = _userManager.GeneratePasswordResetTokenAsync(user);
@@ -139,13 +142,13 @@ namespace SD.MvcWebUI.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = new ResetPasswordModel { Token = token };
+            var model = new ResetPasswordViewModel { Token = token };
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPassword(ResetPasswordModel resetPasswordModel)
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordModel)
         {
             if (!ModelState.IsValid)
             {
