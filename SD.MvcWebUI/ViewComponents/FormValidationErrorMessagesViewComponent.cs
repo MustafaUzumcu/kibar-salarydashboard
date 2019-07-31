@@ -11,7 +11,8 @@ namespace SD.MvcWebUI.ViewComponents
         public ViewViewComponentResult Invoke(ModelStateDictionary modelStateDictionary)
         {
             string validationErrors = string.Join(", ",
-                modelStateDictionary.Values.Where(v => v.Errors.Count > 0)
+                modelStateDictionary.Values
+                    .Where(v => v.Errors.Count > 0)
                     .SelectMany(v=> v.Errors)
                     .Select(e => e.ErrorMessage)
                     .ToArray()

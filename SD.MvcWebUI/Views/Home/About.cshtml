@@ -1,0 +1,13 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>About</h2>
+
+<form asp-action="About" asp-controller="Home" method="post">
+    <input type="text" name="name" />
+    <input type="submit" value="Gönder"/>
+</form>

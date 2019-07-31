@@ -5,16 +5,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SD.Business.Abstract;
 using SD.MvcWebUI.Models;
+using SD.MvcWebUI.Services;
 
 namespace SD.MvcWebUI.Controllers
 {
     public class HomeController : Controller
     {
         private ISystemParameterService _systemParameterService;
+        private AlertMessageService _alertMessageService;
 
-        public HomeController(ISystemParameterService systemParameterService)
+        public HomeController(ISystemParameterService systemParameterService, AlertMessageService alertMessageService)
         {
             _systemParameterService = systemParameterService;
+            _alertMessageService = alertMessageService;
         }
 
         public IActionResult Index()
@@ -44,6 +47,18 @@ namespace SD.MvcWebUI.Controllers
             //        $"{parameters[0].ParameterName} : {parameters[0].ParameterValue} ({parameters[0].Description})";
             //}
             //return result;
+        }
+
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult About(string name)
+        {
+            _alertMessageService.AlertError("Hata", "Hata mesajı örneği " + name);
+            return View();
         }
     }
 }

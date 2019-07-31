@@ -17,6 +17,7 @@ using SD.DataAccess.Abstract;
 using SD.DataAccess.Concrete.EntityFramework;
 using SD.Entities;
 using SD.MvcWebUI.Entities;
+using SD.MvcWebUI.Services;
 
 namespace SD.MvcWebUI
 {
@@ -36,6 +37,9 @@ namespace SD.MvcWebUI
             services.AddScoped<ISystemParameterService, SystemParameterService>();
             services.AddScoped<ISystemParameterDal, EfSystemParameterDal>();
 
+            // Features Services
+            services.AddHttpContextAccessor();
+            services.AddScoped<AlertMessageService>();
 
             // DbContext
             var connectionString = Configuration.GetConnectionString("SDConnection");
