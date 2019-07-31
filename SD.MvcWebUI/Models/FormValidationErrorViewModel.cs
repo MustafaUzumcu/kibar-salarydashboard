@@ -1,6 +1,6 @@
 ﻿namespace SD.MvcWebUI.Models
 {
-    public class ModelErrorViewModel
+    public class FormValidationErrorViewModel
     {
         public string Message { get; set; }
     }

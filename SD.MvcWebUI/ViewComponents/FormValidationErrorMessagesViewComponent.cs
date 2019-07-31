@@ -6,7 +6,7 @@ using SD.MvcWebUI.Models;
 
 namespace SD.MvcWebUI.ViewComponents
 {
-    public class ModelErrorMessagesViewComponent:ViewComponent
+    public class FormValidationErrorMessagesViewComponent:ViewComponent
     {
         public ViewViewComponentResult Invoke(ModelStateDictionary modelStateDictionary)
         {
@@ -17,7 +17,7 @@ namespace SD.MvcWebUI.ViewComponents
                     .ToArray()
             );
 
-            var model = new ModelErrorViewModel
+            var model = new FormValidationErrorViewModel
             {
                 Message = validationErrors
             };

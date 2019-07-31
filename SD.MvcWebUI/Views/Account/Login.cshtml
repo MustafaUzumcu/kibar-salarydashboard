@@ -23,7 +23,7 @@
 
             @if (ViewData.ModelState.ErrorCount > 0)
             {
-                @(await Component.InvokeAsync("ModelErrorMessages", ViewData.ModelState))
+                @await Component.InvokeAsync("FormValidationErrorMessages", ViewData.ModelState)
             }
             <div class="form-group has-feedback">
                 <input asp-for="Email" class="form-control" placeholder="Email">

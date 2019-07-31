@@ -19,7 +19,7 @@
 
             @if (ViewData.ModelState.ErrorCount > 0)
             {
-                @(await Component.InvokeAsync("ModelErrorMessages", ViewData.ModelState))
+                @await Component.InvokeAsync("FormValidationErrorMessages", ViewData.ModelState)
             }
             <div class="form-group has-feedback">
                 <input asp-for="FullName" class="form-control" placeholder="Ad Soyad">
