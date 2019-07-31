@@ -55,6 +55,8 @@ namespace SD.MvcWebUI
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSession();
+            services.AddDistributedMemoryCache();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,7 +73,8 @@ namespace SD.MvcWebUI
             // Client-Side library
             app.UseStaticFiles();
 
-
+            app.UseAuthentication();
+            app.UseSession();
             app.UseMvc(ConfigureRoutes);
         }
 
