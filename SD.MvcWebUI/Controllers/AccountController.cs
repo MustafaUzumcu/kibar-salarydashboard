@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SD.MvcWebUI.Entities;
+using SD.MvcWebUI.Helpers;
 using SD.MvcWebUI.Models;
 
 namespace SD.MvcWebUI.Controllers
@@ -61,6 +64,8 @@ namespace SD.MvcWebUI.Controllers
 
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated) return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -89,6 +94,7 @@ namespace SD.MvcWebUI.Controllers
             return View(loginViewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -102,22 +108,28 @@ namespace SD.MvcWebUI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ForgotPassword(string email)
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel forgotPasswordViewModel)
         {
-            if (string.IsNullOrEmpty(email))
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Email alanı zorunlu");
-                return View();
+                return View(forgotPasswordViewModel);
             }
 
-            var user = await _userManager.FindByEmailAsync(email);
+            var resetPasswordCaptchaCode = HttpContext.Session.GetString("ResetPasswordCaptchaCode");
+            if (forgotPasswordViewModel.SecurityCode != resetPasswordCaptchaCode)
+            {
+                ModelState.AddModelError("", "Güvenlik kodu doğru değil");
+                return View(forgotPasswordViewModel);
+            }
+
+            var user = await _userManager.FindByEmailAsync(forgotPasswordViewModel.Email);
             if (user == null)
             {
                 ModelState.AddModelError("", "Kullanıcı bulunamadı");
                 return View();
             }
 
-            var token = _userManager.GeneratePasswordResetTokenAsync(user);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             var resetPasswordUrl = Url.Action("ResetPassword", "Account", new
             {
                 token
@@ -126,6 +138,8 @@ namespace SD.MvcWebUI.Controllers
             // TODO: Mail Send reset password url to user email
 
             Console.WriteLine(resetPasswordUrl);
+
+            HttpContext.Session.Remove("ResetPasswordCaptchaCode");
 
             return RedirectToAction("SendedResetMail");
         }
@@ -169,6 +183,15 @@ namespace SD.MvcWebUI.Controllers
             }
 
             return View(resetPasswordModel);
+        }
+
+        public IActionResult GetResetPasswordCaptchaCode()
+        {
+            HttpContext.Session.Remove("ResetPasswordCaptchaCode");
+            var captchaImageModel = CaptchaImageGenerator.Generate();
+            HttpContext.Session.SetString("ResetPasswordCaptchaCode", captchaImageModel.GeneratedCode);
+
+            return File(captchaImageModel.Image, captchaImageModel.ImageExtension);
         }
     }
 }

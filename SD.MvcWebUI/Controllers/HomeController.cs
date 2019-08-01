@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SD.Business.Abstract;
 using SD.MvcWebUI.Models;
@@ -9,6 +11,7 @@ using SD.MvcWebUI.Services;
 
 namespace SD.MvcWebUI.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ISystemParameterService _systemParameterService;
@@ -22,6 +25,7 @@ namespace SD.MvcWebUI.Controllers
 
         public IActionResult Index()
         {
+            
             List<SystemParameterViewModel> parameterViewModels = new List<SystemParameterViewModel>();
 
             for (int i = 0; i < 100; i++)
