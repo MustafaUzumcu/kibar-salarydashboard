@@ -1,0 +1,36 @@
+﻿@model RoleAddViewModel
+
+@{
+    ViewData["Title"] = "Rol Ekle";
+    Layout = "_AdminLayout";
+}
+
+<div class="box">
+    @*<div class="box-header with-border">
+        <h3 class="box-title">Rol Ekle</h3>
+    </div>*@
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form asp-action="Create" asp-controller="Role" role="form">
+        @Html.AntiForgeryToken()
+
+        @if (ViewData.ModelState.ErrorCount > 0)
+        {
+            @await Component.InvokeAsync("FormValidationErrorMessages", ViewData.ModelState)
+        }
+
+        <div class="box-body">
+            <div class="form-group">
+                <label asp-for="RoleName">Rol Adı</label>
+                <input asp-for="RoleName" class="form-control" placeholder="Rol Adı">
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </form>
+</div>
+<!-- /.box -->
+

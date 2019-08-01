@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title | Salary Dashboard</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -44,7 +44,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="@Url.Action("Index", "Home")" class="logo">
+            <a href="@Url.Action("Index", "Admin")" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">SD</span>
                 <!-- logo for regular state and mobile devices -->
@@ -125,7 +125,7 @@
                     <li><a href="#"><i class="fa fa-cog"></i> <span>Sistem Parametreleri</span></a></li>
                     <li><a href="#"><i class="fa fa-table"></i> <span>Artış Matrisi</span></a></li>
                     <li><a href="#"><i class="fa fa-bar-chart"></i> <span>Raporlar</span></a></li>
-                    <li><a href="#"><i class="fa fa-id-card-o"></i> <span>Rol Yönetimi</span></a></li>
+                    <li><a href="@Url.Action("Index", "Role")"><i class="fa fa-id-card-o"></i> <span>Rol Yönetimi</span></a></li>
                     <li><a href="#"><i class="fa fa-user"></i> <span>Kullanıcı Yönetimi</span></a></li>
                 </ul>
                 <!-- /.sidebar-menu -->
@@ -141,7 +141,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header" style="padding-top: 10px; padding-bottom: 10px;">
                 <h1>
-                    Page Header
+                    @ViewData["Title"]
                     <small>Optional description</small>
                 </h1>
                 <ol class="breadcrumb" style="padding-top: 0px; padding-bottom: 0">

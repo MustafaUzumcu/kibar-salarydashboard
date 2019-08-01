@@ -1,0 +1,53 @@
+﻿@model RoleViewModel
+
+@{
+    ViewData["Title"] = "Rol Yönetimi";
+    Layout = "_AdminLayout";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Rol Listesi</h3>
+
+                <div class="box-tools">
+                    <a asp-action="Create" asp-controller="Role" class="btn btn-block btn-default">
+                        <i class="fa fa-plus"></i> Yeni Rol Ekle
+                    </a>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        @*<th>ID</th>*@
+                        <th>Rol Adı</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @foreach (var role in Model.Roles)
+                    {
+                <tr>
+                    @*<td>@role.Id</td>*@
+                    <td>@role.Name (@role.NormalizedName)</td>
+                    <td>
+                        <a asp-action="Edit" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-info">
+                            <i class="fa fa-pencil"></i> Düzenle
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-controller="Role" asp-route-id="@role.Id" class="btn btn-danger">
+                            <i class="fa fa-trash"></i> Sil
+                        </a>
+                    </td>
+                </tr>
+                    }
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+
