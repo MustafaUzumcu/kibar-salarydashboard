@@ -41,7 +41,6 @@ namespace SD.MvcWebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Rol adı zorunlu.");
                 return View(roleAddViewModel);
             }
 
@@ -84,7 +83,7 @@ namespace SD.MvcWebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Rol adı zorunlu");
+                return View(role);
             }
 
             var identityRole = await _roleManager.FindByIdAsync(role.Id);
@@ -100,7 +99,6 @@ namespace SD.MvcWebUI.Controllers
             return RedirectToAction("Index", "Role");
         }
 
-        [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
             if (string.IsNullOrEmpty(id))
@@ -120,6 +118,7 @@ namespace SD.MvcWebUI.Controllers
             if (!result.Succeeded)
             {
                 _alertMessageService.AlertError("Hata", "Rol silinemedi");
+                return RedirectToAction("Index", "Role");
             }
 
             return RedirectToAction("Index", "Role");

@@ -1,0 +1,55 @@
+﻿@model UserEditViewModel
+
+@{
+    ViewData["Title"] = "Kullanıcı Düzenle";
+    Layout = "_AdminLayout";
+}
+
+<link href="@Url.Content("~/lib/select2/css/select2.css")" rel="stylesheet" />
+<link href="@Url.Content("~/css/override.css")" rel="stylesheet" />
+<script src="@Url.Content("~/lib/select2/js/select2.full.min.js")"></script>
+
+<div class="box">
+    @*<div class="box-header with-border">
+            <h3 class="box-title">Rol Ekle</h3>
+        </div>*@
+    <!-- /.box-header -->
+    <!-- form start -->
+    <form asp-action="Edit" asp-controller="User" role="form">
+        @Html.AntiForgeryToken()
+
+        @if (ViewData.ModelState.ErrorCount > 0)
+        {
+            @await Component.InvokeAsync("FormValidationErrorMessages", ViewData.ModelState)
+        }
+
+        <input asp-for="User.Id" type="hidden" value="@Model.User.Id" />
+
+        <div class="box-body">
+            <div class="form-group">
+                <label asp-for="User.Email">Email</label>
+                <input asp-for="User.Email" class="form-control" placeholder="Email">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="RoleNames">Rol</label>
+                <select asp-for="RoleNames" class="form-control select2" multiple="multiple" data-placeholder="Rol Seç"
+                        asp-items="@(new SelectList(Model.Roles, "Name", "Name", Model.User.RoleNames))"></select>
+                <span asp-validation-for="RoleNames"></span>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </form>
+</div>
+<!-- /.box -->
+
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+    });
+</script>

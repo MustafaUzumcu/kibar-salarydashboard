@@ -1,0 +1,15 @@
+﻿/* select2 */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #000000;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: #ef0202;
+    margin-right: 4px;
+}
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+        color: #fff;
+    }
+
+/* # select2 */

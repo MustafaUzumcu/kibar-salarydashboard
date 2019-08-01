@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title | Salary Dashboard</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    
+
     @* TODO Bundle CSS *@
 
     <link href="@Url.Content("~/lib/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
@@ -34,6 +34,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
+    <script src="@Url.Content("~/js/Layout.js")"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -132,7 +133,7 @@
             </section>
             <!-- /.sidebar -->
         </aside>
-        
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Alerts -->
@@ -141,12 +142,15 @@
             <!-- Content Header (Page header) -->
             <section class="content-header" style="padding-top: 10px; padding-bottom: 10px;">
                 <h1>
-                    Page Header
+                    <a id="backButton" onclick="onClickBackButton()" class="btn btn-sm btn-default">
+                        <i class="fa fa-chevron-left"></i> Geri
+                    </a>
+                    @ViewBag.Title
                     <small>Optional description</small>
                 </h1>
                 <ol class="breadcrumb" style="padding-top: 0px; padding-bottom: 0">
                     @*<li><a href="#"><i class="fa fa-dashboard"></i> Salary Dashboard</a></li>*@
-                    <li><a href="#">Ana sayfa</a></li>
+                    <li><a href="@Url.Action("Index", "Home")">Ana sayfa</a></li>
                     <li class="active"><i class="fa fa-upload"></i> Çalışan Verilerini Yükle</li>
                 </ol>
             </section>
@@ -170,12 +174,11 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
-
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
             <div class="pull-right hidden-xs">
-                <!-- right content -->    
+                <!-- right content -->
             </div>
             <!-- Default to the left -->
             <strong>Copyright &copy; @DateTime.Now.Year <a href="#">Kibar Holding</a>.</strong> All rights reserved.
@@ -183,6 +186,16 @@
 
     </div>
     <!-- ./wrapper -->
-</body>
+    <script>
+        $(document).ready(function () {
+            // if history previous exist
+            if (document.referrer !== "") {
+                $("#backButton").show();
+            } else {
+                $("#backButton").hide();
+            }
+        });
+    </script>
 
+</body>
 </html>
