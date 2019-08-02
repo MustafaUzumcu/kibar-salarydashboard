@@ -1,0 +1,57 @@
+﻿@model SystemParameterListModel
+
+@{
+    ViewData["Title"] = "Sistem Parametleri";
+    Layout = "_AdminLayout";
+}
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Parametreler</h3>
+
+                <div class="box-tools">
+                    <a asp-action="Create" asp-controller="SystemParameters" class="btn btn-block btn-default">
+                        <i class="fa fa-plus"></i> Yeni Parametre Ekle
+                    </a>
+                </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Parametre Adı</th>
+                        <th>Parametre Değeri</th>
+                        <th>Açıklama</th>
+                        <th>Değiştirilebilir</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    @foreach (var systemParameter in Model.SystemParameters)
+                    {
+                        <tr>
+                            <td>@systemParameter.ParameterName</td>
+                            <td>@systemParameter.ParameterValue</td>
+                            <td>@systemParameter.Description</td>
+                            <td>@systemParameter.IsReadOnly</td>
+                            <td>
+                                <a asp-action="Edit" asp-controller="SystemParameters" asp-route-id="@systemParameter.ParameterId" class="btn btn-info pull-right">
+                                    <i class="fa fa-pencil"></i> Düzenle
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-action="Delete" asp-controller="SystemParameters" asp-route-id="@systemParameter.ParameterId" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i> Sil
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>

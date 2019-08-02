@@ -1,0 +1,60 @@
+﻿@model SystemParameterViewModel
+
+@{
+    ViewData["Title"] = "Sistem Parametresi Ekle";
+    Layout = "_AdminLayout";
+}
+
+<link href="@Url.Content("~/lib/admin-lte/plugins/iCheck/all.css")" rel="stylesheet" />
+<script src="@Url.Content("~/lib/admin-lte/plugins/iCheck/icheck.min.js")"></script>
+
+<div class="box">
+  
+    <form asp-action="Create" asp-controller="SystemParameters" method="post" role="form">
+        @Html.AntiForgeryToken()
+
+        @if (ViewData.ModelState.ErrorCount > 0)
+        {
+            @await Component.InvokeAsync("FormValidationErrorMessages", ViewData.ModelState)
+        }
+        
+        <input asp-for="ParameterId" type="hidden" />
+
+        <div class="box-body">
+            <div class="form-group">
+                <label asp-for="ParameterName">Parametre Adı</label>
+                <input asp-for="ParameterName" class="form-control" placeholder="Parametre Adı">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ParameterValue">Parametre Değeri</label>
+                <input asp-for="ParameterValue" class="form-control" placeholder="Parametre Değeri">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description">Açıklama</label>
+                <input asp-for="Description" class="form-control" placeholder="Açıklama">
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsReadOnly">Değiştirilebilir mi?</label>
+                <input asp-for="IsReadOnly" type="checkbox" class="minimal" checked="checked">
+                <div class="well well-sm bg-info">Parametrenin şirket bazında değiştirilebilir olup olmamasını ayarlar</div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+
+        <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+    </form>
+</div>
+<!-- /.box -->
+
+<script>
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+</script>

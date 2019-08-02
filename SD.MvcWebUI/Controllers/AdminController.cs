@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SD.MvcWebUI.Controllers
 {
-    [Authorize]
+    
     public class AdminController : Controller
     {
         public IActionResult Index()
